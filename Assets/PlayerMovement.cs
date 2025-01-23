@@ -58,10 +58,21 @@ public class PlayerMovement : MonoBehaviour
 
     private void Flip()
     {
-        isFacingRight = !isFacingRight;
-        Vector3 localScale = transform.localScale;
-        localScale.x *= -1f;
-        transform.localScale = localScale;
+        if (isFacingRight)
+        {
+            isFacingRight = false;
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else
+        {
+            isFacingRight = true;
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+        }
+        
+        //Vector3 localScale = transform.localScale;
+        //localScale.x *= -1f;
+        //transform.localScale = localScale;
+        
     }
 
     public void Move(InputAction.CallbackContext context)
