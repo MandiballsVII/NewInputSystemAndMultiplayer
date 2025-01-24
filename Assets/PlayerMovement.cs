@@ -15,10 +15,15 @@ public class PlayerMovement : MonoBehaviour
     private float horizontal;
     private float vertical;
 
-    private float horizontalSpeed = 2f;
+    private float velocity = 2f;
     private float verticalSpeed = 0.05f;
     private float jumpForce = 16f;
     private bool isFacingRight = true;
+
+    private float maxSpeed = 350f;
+    private float accelerationRate = 0.5f;
+
+    public bool withFlippers = false;
 
     [SerializeField] private InputActionReference movement, attack, mousePosition, rightStickInput;
 
@@ -45,7 +50,23 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         //rb.velocity = new Vector2(horizontal * horizontalSpeed, rb.velocity.y + vertical * verticalSpeed);
-        rb.velocity = movementInput * horizontalSpeed;
+        //if (movementInput != Vector2.zero && velocity < maxSpeed)
+        //{
+        //    velocity += accelerationRate * Time.deltaTime;
+        //}
+        //else if (movementInput == Vector2.zero)
+        //{
+        //    velocity -= accelerationRate * Time.deltaTime;
+        //}
+        //rb.velocity = movementInput * velocity;
+        if (withFlippers)
+        {
+            rb.AddForce(movementInput * new Vector2(10, 10));
+        }
+        else
+        {
+            rb.AddForce(movementInput * new Vector2(5, 5));
+        }
 
         if (!isFacingRight && movementInput.x > 0f)
         {
@@ -90,23 +111,6 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 GetRightStickInput()
     {
         return rightStickInput.action.ReadValue<Vector2>();
-    }
-
-    public void Jump(InputAction.CallbackContext context)
-    {
-        if(context.performed && IsGrounded())
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-        }
-        if(context.canceled && rb.velocity.y > 0f)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
-        }
-    }
-
-    private bool IsGrounded()
-    {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
     }
 
     private void Flip()
