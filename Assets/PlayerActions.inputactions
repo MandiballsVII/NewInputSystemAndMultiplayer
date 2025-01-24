@@ -34,21 +34,21 @@
                 },
                 {
                     "name": "MousePosition",
-                    "type": "PassThrough",
+                    "type": "Value",
                     "id": "01b2f774-8175-4fae-a5fb-7a8238a37973",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "RightStickPosition",
-                    "type": "PassThrough",
+                    "type": "Value",
                     "id": "024a42b4-d7a0-4a2a-a091-a2c4aa5941ae",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
